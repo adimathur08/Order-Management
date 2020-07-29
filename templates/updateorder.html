@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+        <!-- CSS only -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+        <!-- JS, Popper.js, and jQuery -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    
+
+    
+</head>
+<body>
+
+    <!-- NAVBAR  -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="adminhome">ORDER MANAGEMENT</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="adminhome">Dashboard <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="products">Products <span class="sr-only">(current)</span></a>
+              </li>
+            
+          </ul>
+          <div style="color: white;">
+            Hello, {{user.username}}&nbsp;&nbsp;
+          </div>
+            <a href="logout">
+                <button class="btn btn-outline-danger my-2 my-sm-0" >LOGOUT</button>
+            </a>
+        </div>
+    </nav>
+
+
+    <div class="container">
+
+        <div style="text-align: center; padding: 35px;">
+            <strong>
+                <h4>
+                   UPDATE ORDER DETAILS
+                   <br>
+                   ORDER-ID : #{{id}}
+                </h4>
+            </strong> 
+        </div>
+
+    <form method="POST" action=updateorder>
+        {% csrf_token %}
+        <input value="{{id}}" name="id" hidden>
+        <div class="row" style=" padding: 20px; border-style: solid;border-radius: 20px; border-color: rgb(206, 201, 201); border-width: 1px;">
+            <div  class="col-6" style="text-align: center; padding: 1em;" > 
+                Change User
+            </div>
+            <div class="col-6"  style="  display: flex; align-items: center;">
+                <select name="uservalue" class='col-6 form-control form-control-sm' >
+                    <option default value="{{username}}">{{username}}</option>
+                    
+                    {% for i in other_users %}
+                    <option value="{{i}}"> {{i}}</option>
+                    {% endfor %}
+                
+                </select>
+            </div>
+            
+
+            <div  class="col-6" style="text-align: center; padding: 1em" > 
+                Change Product
+            </div>
+            <div class="col-6" style="  display: flex; align-items: center;">
+                <select name="productvalue" class='col-6 form-control form-control-sm' >
+                    <option default value="{{product_name}}">{{product_name}}</option>
+
+                    
+
+                    {% for j in other_products %}
+                    <option value="{{j}}">{{j}}</option>
+                    {% endfor %}
+                    
+
+                </select>
+            </div>
+
+            <div  class="col-6" style="text-align: center; padding: 1em;" > 
+                Change Status
+            </div>
+            <div class="col-6"  style="  display: flex; align-items: center;">
+                <select name="statusvalue" class='col-6 form-control form-control-sm' >
+                    <option default value="Shipped">Shipped</option>
+                    <option value="Out for Delivery">Out for Delivery</option>
+                    <option value="Delivered">Delivered</option>
+                </select>
+            </div>
+
+            <div class="col-12" style=" display: flex; align-items: center; justify-content: center;">
+                <button type="submit" class="btn btn-outline-success">
+                    Submit Querry
+                </button>
+            </div>
+        </div>
+    </form>
+    </div>
+
+
+</body>
+</html>

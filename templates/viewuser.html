@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+</head>
+<body>
+
+    <!-- NAVBAR  -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="adminhome">ORDER MANAGEMENT</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Dashboard <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Products <span class="sr-only">(current)</span></a>
+              </li>
+            
+          </ul>
+          <div style="color: white;">
+            Hello, {{user.username}}&nbsp;&nbsp;
+          </div>
+            <a href="logout">
+                <button class="btn btn-outline-danger my-2 my-sm-0" >LOGOUT</button>
+            </a>
+        </div>
+    </nav>
+
+
+
+    <!-- THREE CARDS TO DISPLAY DATA -->
+    <div class="container" style="padding-top: 35px;">
+        <div class="row" style="width: 100%;">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" >
+                <div class="card bg-light mb-2" >
+                    <div class="card-header" style="text-align: center;">Customer</div>
+                    <div class="card-body" style="text-align: center;">
+                        <div style="padding: 1px;">
+                            <button class="btn btn-outline-info btn-sm">Update Customer</button>
+                        </div>
+                        <div style="padding: 1px;">
+                          <a href="placeorder?id={{id}}">
+                            <button class="btn btn-outline-info btn-sm">Place Order</button>
+                          </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+    
+    
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" >
+                <div class="card bg-light mb-2" >
+                    <div class="card-header" style="text-align: center;">Contact Information</div>
+                    <div class="card-body" style="text-align: center;">
+                        <h6 class="card-title">Email : {{email}}</h6>
+                        <h6 class="card-title">Phone : +91{{phone}}</h6>
+                    </div>
+                </div>
+            </div>
+            
+    
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" >
+                <div class="card bg-light mb-2" >
+                    <div class="card-header" style="text-align: center;">Total Orders</div>
+                    <div class="card-body" style="text-align: center; height: 100px;">
+                        <h5 class="card-title">{{total}}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    
+    <!-- FILTERS -->
+    <br><br>
+    <div class="container" style="padding: 10px; border-style: solid; border-color: rgb(212, 206, 206); border-radius: 10px; border-width: 1px;">
+        <div style="padding-bottom: 5px; text-align: center;">
+            FILTER ORDERS
+        </div>
+        <div class="row" >
+            <div class="col-lg col-md-3 col-sm-12">
+                <select id="productList" onchange="filterProducts()"  class='form-control'>
+                    <option default value="">Filter Products</option>
+                    <option>BBQ Grill</option>
+                    <option>Ball</option>
+                </select>
+                    
+              </div>
+              or
+            <div class="col-lg col-md-3 col-sm-12">
+                <select id="status" onchange="filterStatus()"  class='form-control'>
+                    <option default value="">Filter Status</option>
+                    <option value="Shipped">Shipped</option>
+                    <option value="Delivered">Delivered</option>
+                </select>
+            </div>
+              or
+            
+            <div class="col-lg col-md-3 col-sm-12">
+                <select class="inputxlg form-control" id="rangeval" >
+                    <option value="">Filter by Date Range</option>
+                    <option value="15">15 Days</option>
+                    <option value="30">30 Days</option>
+                    <option value="90">90 Days</option>
+                    <option value="365">Last Year</option>
+                    <option value="Single Date">Single Date</option>
+                    <option value="Custom Date Range">Custom Date Range</option>
+                </select>
+                <input id="selectDate" class="form-control" name="selectDate" type="text">
+                <input id="selectDate2" class="form-control" name="selectDate" type="text">            
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <!-- USER ORDER DETAILS -->
+    <br><br>
+    <div style="text-align: center;">
+        <strong>
+            PAST USER ORDERS
+        </strong> 
+    </div>
+    <div class="table-responsive container" style="border-style: solid; border-color: rgb(212, 206, 206); border-radius: 10px; border-width: 1px;">
+        <table class="table table-hover " id="userdata">
+            <thead >
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Product</th>
+                <th scope="col">Note</th>
+                <th scope="col">Date Ordered</th>
+                <th scope="col">Status</th>
+                <th scope="col">Update</th>
+                <th scope="col">Remove</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              {% for i in orders %}
+
+              <tr>
+                <th scope="row"></th>
+                <td>
+                  {% for p in product%}
+                  {% if i.product_id == p.id %}
+                    {{p.name}}
+                  {% endif %}
+                {% endfor %}
+                </td>
+                <td>-</td>
+                <td>{{i.date}}</td>
+                <td>{{i.status}}</td>
+                <td><a href="updateorder?id={{i.id}}"><button class="btn btn-outline-info btn-sm">Update</button></a></td>
+                <td><a href="deleteorder?id={{i.id}}"> <button class="btn btn-outline-danger btn-sm" >DELETE</button> </a></td>
+              </tr>
+              {% endfor %}
+              
+              
+
+            </tbody>
+          </table>
+    </div>
+    
+
+
+
+    <!-- SCRIPTS FOR FILTER -->
+    <script>
+        function filterProducts() {
+          var input, filter, table, tr, td, i;
+          input = document.getElementById("productList");
+          filter = input.value.toUpperCase();
+          console.log(filter);
+          table = document.getElementById("userdata");
+          console.log("table", table);
+          tr = table.getElementsByTagName("tr");
+          console.log("tr", tr);
+          for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            console.log("TD", td)
+            if (td) {
+              if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            }       
+          }
+        }
+        function filterStatus() {
+          var input, filter, table, tr, td, i;
+          input = document.getElementById("status");
+          filter = input.value.toUpperCase();
+          console.log(filter);
+          table = document.getElementById("userdata");
+          console.log("table", table);
+          tr = table.getElementsByTagName("tr");
+          console.log("tr", tr);
+          for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[3];
+            console.log("TD", td)
+            if (td) {
+              if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            }       
+          }
+        }
+
+
+    </script>
+
+    <script>
+        $(function(){
+// Initialise the inputs on page load:
+var today = new Date().toJSON().replace(/..(..)-(..)-(..).*/, '$3/$2/$1');
+$("#selectDate").datepicker({ dateFormat: 'mm/dd/yy' }).val(today).change(applyFilter);
+$("#selectDate2").datepicker({ dateFormat: 'mm/dd/yy' }).val(today).change(applyFilter);
+$("#rangeval").change(applyFilter);
+
+$.fn.date = function () {
+    return new Date((this.is(':input') ? this.val() : this.text()).replace(/\/(..)$/, '/20$1'));
+}
+
+function applyFilter() {
+    var filterType = $("#rangeval").val(),
+        start, end;
+    // Set the visibility of the two date fields:
+    $("#selectDate").toggle(["Single Date", "Custom Date Range"].indexOf(filterType) > -1);
+    $("#selectDate2").toggle(filterType === "Custom Date Range");
+    // Depending on the type of filter, set the range of dates (start, end):
+    if (filterType === "") {
+        // Show all: choose extreme dates
+        start = new Date('1000-01-01');
+        end = new Date('3000-01-01');
+    } else if (!parseInt(filterType)) {
+        // Use data entry:
+        start = $("#selectDate").date();
+        end = filterType === "Custom Date Range" ? $("#selectDate2").date() : start;
+    } else {
+        // Show last X days:
+        start = new Date();
+        start.setHours(0,0,0,0);
+        start.setDate(start.getDate() - parseInt(filterType));
+        end = new Date(); // today
+    }
+    // For each row: set the visibility depending on the date range
+    $(".mainBody tr").each(function () {
+        var date = $("td:last-child", this).date();
+        $(this).toggle(date >= start && date <= end);
+    });
+}
+applyFilter(); // Execute also on page load
+});
+    </script>
+
+
+
+</body>
+</html>
